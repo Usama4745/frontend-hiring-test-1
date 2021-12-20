@@ -25,11 +25,34 @@ function App() {
           console.log(response.data);
           setCallsData(response.data.nodes);
           setCallsCount(response.data.totalCount);
-          setPageCount(response.data.totalCount / 10);
+          console.log(response.data.totalCount);
+
+          console.log(response.data.totalCount / 10)
+          const pagenumbers=Math.round(response.data.totalCount / 10);
+          setPageCount(pagenumbers);
         });
     }
   }, [authtoken])
 
+  const getcalls = (pagenumber) => {
+    console.log(pagenumber);
+    let axiosConfig = {
+      headers: {
+        "Authorization": "Bearer " + authtoken,
+      }
+    };
+    axios.get('https://frontend-test-api.aircall.io/calls?offset='+pagenumber+'&limit=10', axiosConfig)
+      .then(response => {
+        console.log(response.data);
+        setCallsData(response.data.nodes);
+        setCallsCount(response.data.totalCount);
+        console.log(response.data.totalCount);
+
+        console.log(response.data.totalCount / 10)
+        const pagenumbers=Math.round(response.data.totalCount / 10);
+        setPageCount(pagenumbers);
+      });
+  }
   return (
     <div className="App">
       <div className='list-container'>
@@ -51,7 +74,7 @@ function App() {
         {pagecount && [...Array(pagecount)].map((item, index) => {
           return (
             <div className='pagination-item' key={index}>
-              <div>{index + 1}</div>
+              <button onClick={() => getcalls(index+1)}>{index + 1}</button>
             </div>
           )
         })}
