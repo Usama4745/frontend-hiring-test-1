@@ -1,0 +1,17 @@
+
+.list-container{
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  padding: 30px;
+}
+.call-item{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+
+}
+.paginations{
+  display: flex;
+  column-gap: 5px;
+}
