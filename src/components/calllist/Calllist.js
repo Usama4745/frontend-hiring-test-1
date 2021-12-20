@@ -1,21 +1,21 @@
-
-import './App.css';
 import React, { useEffect, useState } from 'react';
+import { HashRouter as Router, Routes, Route, withRouter, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { HashRouter as Router, Routes, Route, withRouter } from "react-router-dom";
-import { Calldetails } from "./components/calldetails/Calldetails";
-import {Calllist} from './components/calllist/Calllist';
-function App() {
-  const [authtoken, setAuthtoken] = useState("");
+
+export const Calllist = (props) => {
+
+    const [authtoken, setAuthtoken] = useState("");
   const [callsdata, setCallsData] = useState([]);
   const [callscount, setCallsCount] = useState(0);
   const [pagecount, setPageCount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.post('https://frontend-test-api.aircall.io/auth/login', { "username": "test", "password": "test" })
       .then(response => {
         console.log(response.data.access_token);
         setAuthtoken(response.data.access_token);
+        localStorage.setItem('authtoken', response.data.access_token);
 
       });
     if (authtoken) {
@@ -58,28 +58,39 @@ function App() {
 
       });
   }
-  
-  return (
+  const getcalldetails = (id) => {
+    navigate('/details/' + id);
 
-    < Router >
+  }
+    return (
 
-
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={
-
-            <Calllist/>
+        
+        <div className="App">
+        <div className='list-container'>
+          {callsdata && callsdata.map((call, index) => {
+            return (
+              <div className='call-item' onClick={() => getcalldetails(call.id)} key={call.id} >
+                <div>From {call.from}</div>
+                <div>to {call.to}</div>
+                <div>direction {call.direction}</div>
+                <div>call Type {call.call_type}</div>
+                <div>direction {call.direction}</div>
+              </div>
+            )
+          })
           }
-        />
-        <Route
-          exact
-          path="/details/:id"
-          element={<Calldetails />} />
-      </Routes>
-    </Router>
-  );
-}
 
-export default App;
+        </div>
+        <div className='paginations'>
+          {pagecount && [...Array(pagecount)].map((item, index) => {
+            return (
+              <div className='pagination-item' key={index}>
+                <button onClick={() => getcalls(index + 1)}>{index + 1}</button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+    )
+}
