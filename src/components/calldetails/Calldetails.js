@@ -26,14 +26,14 @@ export const Calldetails = (props) => {
     return (
 
         <div className='call-desc'>
-            <div className='call-desc-header'>call type: <label>{calldata.call_type}</label></div>
+            <div className='call-desc-header'>Call type: <label>{calldata.call_type}</label></div>
             <div className='call-desc-header'>Created at: <label>{calldata.created_at}</label></div>
-            <div className='call-desc-header'>direction: <label>{calldata.direction}</label></div>
-            <div className='call-desc-header'>duration: <label>{calldata.duration}</label></div>
-            <div className='call-desc-header'>from: <label>{calldata.from}</label></div>
-            <div className='call-desc-header'>is archived: <label>{calldata.is_archived}</label></div>
-            <div className='call-desc-header'>to: <label>{calldata.to}</label></div>
-            <div className='call-desc-header'>via: <label>{calldata.via}</label></div>
+            <div className='call-desc-header'>Direction: <label>{calldata.direction}</label></div>
+            <div className='call-desc-header'>Duration: <label>{calldata.duration}</label></div>
+            <div className='call-desc-header'>From: <label>{calldata.from}</label></div>
+            <div className='call-desc-header'>Is archived: <label>{calldata.is_archived}</label></div>
+            <div className='call-desc-header'>To: <label>{calldata.to}</label></div>
+            <div className='call-desc-header'>Via: <label>{calldata.via}</label></div>
         </div>
 
     )
